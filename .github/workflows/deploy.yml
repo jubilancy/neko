@@ -1,0 +1,47 @@
+name: 'deploy2nekoweb'
+description: 'The definitive GitHub action for deploying your site to nekoweb!!!'
+
+branding:
+  icon: 'send'
+  color: 'blue'
+
+inputs:
+  nekoweb-api-key:
+    description: 'Your nekoweb API key.'
+    required: true
+  nekoweb-domain:
+    description: 'The nekoweb domain to deploy to.'
+    required: true
+  nekoweb-username:
+    description: 'Your Nekoweb username. (Required for Recently Updated feature)'
+    required: false
+  directory:
+    description: 'The directory you would like to deploy.'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Download deployment script
+      run: |
+        git clone --depth 1 https://github.com/deploy2nekoweb/deploy2nekoweb.git
+      shell: bash
+
+    - name: Setup bun
+      uses: oven-sh/setup-bun@v2
+
+    - run: |
+        cd deploy2nekoweb
+        bun install
+        cd ../
+
+        if [ -n "${{ inputs.nekoweb-username }}" ]; then
+          export D2N_NW_USERNAME="${{ inputs.nekoweb-username }}"
+        fi
+
+        export D2N_NW_API_KEY="${{ inputs.nekoweb-api-key }}"
+        export D2N_NW_DOMAIN="${{ inputs.nekoweb-domain }}"
+        export D2N_DIRECTORY="${{ inputs.directory }}"
+        
+        bun run ./deploy2nekoweb/index.ts
+      shell: bash
