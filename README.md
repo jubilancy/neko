@@ -1,4 +1,4 @@
-# nekoweb-graphics-template
+# nekoweb graphics site template
 
 A self-regenerating graphics gallery for [Nekoweb](https://nekoweb.org). Drop
 images or clips into a folder under `data/`, push to GitHub, and the whole
