@@ -19,7 +19,7 @@ export function renderNav(folders, activeSlug) {
   for (const folder of folders) {
     links.push(navLink(`/${folder.slug}/`, folder.title, activeSlug, folder.slug));
   }
-  return `<nav class="site-nav">${links.join("\n      ")}</nav>`;
+  return `<nav class="site-nav">\n      ${links.join("\n      ")}\n    </nav>`;
 }
 
 export function renderLayout({ title, description, activeSlug, bodyContent, config, folders }) {
@@ -34,17 +34,17 @@ export function renderLayout({ title, description, activeSlug, bodyContent, conf
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%B1%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body style="--accent: ${escapeHtml(config.accent || "#ff8fb3")}">
-  <header class="site-header">
+<body style="--accent: ${escapeHtml(config.accent || "#2e7d4f")}">
+  <aside class="site-sidebar">
     <a class="site-title" href="/">${escapeHtml(config.title)}</a>
     ${renderNav(folders, activeSlug)}
-  </header>
+  </aside>
   <main>
 ${bodyContent}
+    <footer class="site-footer">
+      <p>${escapeHtml(config.footer || "")}</p>
+    </footer>
   </main>
-  <footer class="site-footer">
-    <p>${escapeHtml(config.footer || "")}</p>
-  </footer>
   <div id="lightbox" class="lightbox" hidden>
     <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
     <button type="button" class="lightbox-prev" aria-label="Previous">&#8249;</button>
