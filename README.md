@@ -144,3 +144,34 @@ scripts/
 site.config.json       # site title, nav order, accent color
 .github/workflows/deploy.yml   # build + deploy on push to main
 ```
+
+
+---
+
+> [!NOTE]
+> # caveats below
+
+# Here's the short list worth keeping in your head:
+
+**How the site actually works**
+- `data/pixels/`, `data/stamps/`, `data/buttons/` — drop images here, that's your real content.
+- `src/assets/css/style.css` and `scripts/templates.js` — control styling/layout.
+- Every push to `main` runs `Deploy to Nekoweb`: it rebuilds `dist/` from scratch (both `src/` and `data/`) and wipes+replaces whatever's live on Nekoweb with it.
+
+**Safe to edit anytime, no risk to your images**
+- CSS, templates, `site.config.json` — these only affect *how* things look, never *what's* in `data/`.
+
+**The only way to actually lose images**
+- Deleting/renaming files inside `data/` folders themselves, or deleting the folders. Editing `src/` never touches them.
+
+**What to avoid going forward**
+- Don't use "Re-run jobs" on old workflow runs — if an old run predates a fix (like the Pages removal), re-running it can replay outdated behavior. Just push a new commit instead.
+- Ignore `pages-build-deployment` in your Actions history — it's an inert leftover from when Pages was briefly on. It won't fire again unless something explicitly re-triggers it.
+
+**If the site ever looks stale after a deploy**
+- Hard refresh first (Ctrl+Shift+R / Cmd+Shift+R) — 9 times out of 10 it's just your browser cache, not a real deploy issue.
+
+**Nekoweb secret**
+- `NEKOWEB_API_KEY` lives in repo Settings → Secrets and variables → Actions. Never put the raw key in a committed file — only ever reference it as `${{ secrets.NEKOWEB_API_KEY }}`.
+
+That's the whole mental model. Everything else (adding folders, new pixels, new filters/colors) just flows through that same drop-file-push cycle.
