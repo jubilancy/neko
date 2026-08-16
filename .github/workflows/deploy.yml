@@ -11,10 +11,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build site
+        run: node scripts/build.js
+
       - name: Deploy to Nekoweb
         uses: deploy2nekoweb/deploy2nekoweb@main
         with:
           nekoweb-api-key: ${{ secrets.NEKOWEB_API_KEY }}
           nekoweb-domain: 'asdf.nekoweb.org'
           nekoweb-username: 'asdf'
-          directory: '.'
+          directory: 'dist'
