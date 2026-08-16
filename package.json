@@ -1,0 +1,14 @@
+{
+  "name": "nekoweb-graphics-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-regenerating masonry graphics gallery for Nekoweb. Drop media into /data folders, push, and the site rebuilds itself.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "watch": "node scripts/build.js --watch"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

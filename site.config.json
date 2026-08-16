@@ -1,0 +1,7 @@
+{
+  "title": "my graphics site",
+  "description": "free-to-use pixels, stamps, buttons & other web graphics",
+  "accent": "#ff8fb3",
+  "order": ["pixels", "stamps", "buttons"],
+  "footer": "made with deploy2nekoweb"
+}
